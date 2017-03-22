@@ -23,6 +23,7 @@ namespace Specification
 		[Fact]
 		public void then_system_should_register_a_new_sales_lead()
 		{
+			// arrange
 			SalesLead salesLead = new SalesLead
 			{
 				Name = "Jboy Flaga",
@@ -30,9 +31,15 @@ namespace Specification
 				PhoneNumber = "09090909090"
 			};
 
+			// act
 			houseTheCustomerWants.RegisterSalesLead(salesLead);
 
+			// assert
 			Assert.Equal(1, houseTheCustomerWants.GetSalesLeads().Count);
+			SalesLead newlyAddedSalesLead = houseTheCustomerWants.GetSalesLeads()[0];
+			Assert.Equal("Jboy Flaga", newlyAddedSalesLead.Name);
+			Assert.Equal("jboyflaga@example.com", newlyAddedSalesLead.Email);
+			Assert.Equal("09090909090", newlyAddedSalesLead.PhoneNumber);
 		}
 	}
 }
