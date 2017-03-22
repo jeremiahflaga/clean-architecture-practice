@@ -1,5 +1,5 @@
 using Domain;
-using System;
+using System.Linq;
 using Xunit;
 
 namespace Specification
@@ -35,8 +35,8 @@ namespace Specification
 			houseTheCustomerWants.RegisterSalesLead(salesLead);
 
 			// assert
-			Assert.Equal(1, houseTheCustomerWants.GetSalesLeads().Count);
-			SalesLead newlyAddedSalesLead = houseTheCustomerWants.GetSalesLeads()[0];
+			Assert.Equal(1, houseTheCustomerWants.RegisteredSalesLeads.Count());
+			SalesLead newlyAddedSalesLead = houseTheCustomerWants.RegisteredSalesLeads.Single();
 			Assert.Equal("Jboy Flaga", newlyAddedSalesLead.Name);
 			Assert.Equal("jboyflaga@example.com", newlyAddedSalesLead.Email);
 			Assert.Equal("09090909090", newlyAddedSalesLead.PhoneNumber);
