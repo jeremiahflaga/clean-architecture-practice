@@ -1,10 +1,11 @@
+using Domain;
 using System;
 using Xunit;
 
 namespace Specification
 {
-    public class when_customer_issues_a_contact_real_estate_agent_command
-    {
+	public class when_customer_issues_a_contact_real_estate_agent_command
+	{
 		House houseTheCustomerWants;
 
 		public when_customer_issues_a_contact_real_estate_agent_command()
@@ -14,9 +15,9 @@ namespace Specification
 
 
 		[Fact]
-        public void then_system_validates_all_data()
-        {
-        }
+		public void then_system_validates_all_data()
+		{
+		}
 
 
 		[Fact]
@@ -30,6 +31,8 @@ namespace Specification
 			};
 
 			houseTheCustomerWants.RegisterSalesLead(salesLead);
+
+			Assert.Equal(1, houseTheCustomerWants.GetSalesLeads().Count);
 		}
 	}
 }
