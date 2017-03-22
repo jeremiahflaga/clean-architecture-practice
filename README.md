@@ -27,12 +27,12 @@ I also found ["a Clean Architecture in .Net"](https://medium.com/@stephanhoekstr
 - Ahh! In his [Git commits](https://github.com/matthewrenze/clean-architecture-demo/commits/master), he has this: "Added Specification project for acceptance tests". So the Specification module contains the acceptance tests.
 
 4. In Stephan Hoekstra's project, he has this `Interest` entity. But his `House` entity has this:
-
+<br />
 ``` csharp
 public IList<Interest> Leads { get;  }
 ```
-
+<br />
 What is this `Leads`?
-
+<br />
 Ahh! So the `Interest` class is a [_"sales lead"_](http://www.investopedia.com/terms/s/sales-lead.asp). I'm going to use `SalesLead` instead of `Interest`
 
