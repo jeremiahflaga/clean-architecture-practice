@@ -28,7 +28,7 @@ Ahh! In his [Git commits](https://github.com/matthewrenze/clean-architecture-dem
 
 4. In Stephan Hoekstra's project, he has this `Interest` entity. But his `House` entity has this:
 <br />
-``` csharp
+``` C#
 public IList<Interest> Leads { get;  }
 ```
 <br />
