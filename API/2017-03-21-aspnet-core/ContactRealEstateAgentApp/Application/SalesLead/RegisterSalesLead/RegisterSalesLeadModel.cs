@@ -1,8 +1,10 @@
-﻿namespace Application.SalesLead.RegisterSalesLead
+﻿using System;
+
+namespace Application.SalesLead.RegisterSalesLead
 {
 	public class RegisterSalesLeadModel
 	{
-		public int HouseId { get; set; }
+		public Guid HouseId { get; set; }
 
 		public string SalesLeadName { get; set; }
 		public string SalesLeadEmail { get; set; }

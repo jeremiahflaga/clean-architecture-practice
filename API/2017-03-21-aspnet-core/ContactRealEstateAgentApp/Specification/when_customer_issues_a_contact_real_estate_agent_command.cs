@@ -28,15 +28,25 @@ namespace Specification
 		public void then_system_should_register_a_new_sales_lead()
 		{
 			// arrange
-			SalesLead salesLead = new SalesLead()
+			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
+			IConfirmationMessageService confirmationSender = mockConfirmationSender;
+			IHouseRepository houseRepository = new MockHouseRepository(houseTheCustomerWants);
+
+			RegisterSalesLeadModel salesLeadModel = new RegisterSalesLeadModel()
 			{
-				Name = "Jboy Flaga",
-				Email = "jboyflaga@example.com",
-				PhoneNumber = "09090909090"
+				HouseId = houseTheCustomerWants.Id,
+
+				SalesLeadName = "Jboy Flaga",
+				SalesLeadEmail = "jboyflaga@example.com",
+				SalesLeadPhoneNumber = "09090909090",
+
+				ConfirmationMessage = "message of confirmation"
 			};
 
+			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(houseRepository, confirmationSender);
+
 			// act
-			houseTheCustomerWants.RegisterSalesLead(salesLead);
+			registerSalesLeadCommand.RegisterSalesLead(salesLeadModel);
 
 			// assert
 			Assert.Equal(1, houseTheCustomerWants.RegisteredSalesLeads.Count());
@@ -52,10 +62,11 @@ namespace Specification
 			// arrange
 			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
 			IConfirmationMessageService confirmationSender = mockConfirmationSender;
+			IHouseRepository houseRepository = new MockHouseRepository(houseTheCustomerWants);
 
 			RegisterSalesLeadModel salesLeadModel = new RegisterSalesLeadModel()
 			{
-				HouseId = 1,
+				HouseId = houseTheCustomerWants.Id,
 
 				SalesLeadName = "Jboy Flaga",
 				SalesLeadEmail = "jboyflaga@example.com",
@@ -64,7 +75,7 @@ namespace Specification
 				ConfirmationMessage = "message of confirmation"
 			};
 
-			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(confirmationSender);
+			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(houseRepository, confirmationSender);
 
 			//act
 			registerSalesLeadCommand.RegisterSalesLead(salesLeadModel);
