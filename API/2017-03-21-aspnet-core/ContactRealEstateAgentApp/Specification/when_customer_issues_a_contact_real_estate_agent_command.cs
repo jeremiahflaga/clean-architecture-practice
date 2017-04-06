@@ -10,10 +10,15 @@ namespace Specification
 	public class when_customer_issues_a_contact_real_estate_agent_command
 	{
 		House houseTheCustomerWants;
+		MockConfirmationMessageSender mockConfirmationSender;
+		MockHouseRepository mockHouseRepository;
+
 
 		public when_customer_issues_a_contact_real_estate_agent_command()
 		{
 			houseTheCustomerWants = new House();
+			mockConfirmationSender = new MockConfirmationMessageSender();
+			mockHouseRepository = new MockHouseRepository(houseTheCustomerWants);
 		}
 
 
@@ -23,15 +28,10 @@ namespace Specification
 			throw new NotImplementedException();
 		}
 
-
 		[Fact]
 		public void then_system_should_register_a_new_sales_lead()
 		{
 			// arrange
-			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
-			IConfirmationMessageService confirmationSender = mockConfirmationSender;
-			IHouseRepository houseRepository = new MockHouseRepository(houseTheCustomerWants);
-
 			RegisterSalesLeadModel salesLeadModel = new RegisterSalesLeadModel()
 			{
 				HouseId = houseTheCustomerWants.Id,
@@ -43,7 +43,7 @@ namespace Specification
 				ConfirmationMessage = "message of confirmation"
 			};
 
-			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(houseRepository, confirmationSender);
+			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(mockHouseRepository, mockConfirmationSender);
 
 			// act
 			registerSalesLeadCommand.RegisterSalesLead(salesLeadModel);
@@ -60,10 +60,6 @@ namespace Specification
 		public void then_system_should_confirm_to_the_user_that_his_request_has_been_processed()
 		{
 			// arrange
-			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
-			IConfirmationMessageService confirmationSender = mockConfirmationSender;
-			IHouseRepository houseRepository = new MockHouseRepository(houseTheCustomerWants);
-
 			RegisterSalesLeadModel salesLeadModel = new RegisterSalesLeadModel()
 			{
 				HouseId = houseTheCustomerWants.Id,
@@ -75,7 +71,7 @@ namespace Specification
 				ConfirmationMessage = "message of confirmation"
 			};
 
-			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(houseRepository, confirmationSender);
+			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(mockHouseRepository, mockConfirmationSender);
 
 			//act
 			registerSalesLeadCommand.RegisterSalesLead(salesLeadModel);
