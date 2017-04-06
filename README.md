@@ -42,21 +42,27 @@ Happy coding!!!
 ## This is the Specification from Stephan Hoekstra's article
 
 **User story: Contact real estate agent**
-As a consumer I want to contact the real estate agent
-so that I can visit a specific house.
+
+As a consumer I want to contact the real estate agent so that I can visit a specific house.
+
 We can express this like a formal use-case.
+
 For example:
 
 **Use case: Contact real estate agent**
+
 Data:
 - Customer email address(required, must be valid)
 - Customer phone number (required)
 - HouseId — every house on funda.nl has an Id.
+
 Primary Course
+
 - The customer issues a “Contact Real Estate Agent” command with above
 data
 - System validates all data
 - System records the fact that the user is interested in the house, so we
 can notify the agent at a later time.
 - System confirms to the user that their request has been processed.
+
 Exception Course: Validation Error
