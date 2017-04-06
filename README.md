@@ -37,3 +37,26 @@ public IList<Interest> Leads { get;  }
 Ahh! So the `Interest` class is a [_"sales lead"_](http://www.investopedia.com/terms/s/sales-lead.asp). I'm going to use `SalesLead` instead of `Interest`. I'm not sure if this is correct, but I will use `SalesLead` because it seems more clear to me than `Interest`. I will just change it later if I find out that I'm wrong.
 
 Happy coding!!!
+
+
+## This is the Specification from Stephan Hoekstra's article
+
+**User story: Contact real estate agent**
+As a consumer I want to contact the real estate agent
+so that I can visit a specific house.
+We can express this like a formal use-case.
+For example:
+
+**Use case: Contact real estate agent**
+Data:
+- Customer email address(required, must be valid)
+- Customer phone number (required)
+- HouseId — every house on funda.nl has an Id.
+Primary Course
+- The customer issues a “Contact Real Estate Agent” command with above
+data
+- System validates all data
+- System records the fact that the user is interested in the house, so we
+can notify the agent at a later time.
+- System confirms to the user that their request has been processed.
+Exception Course: Validation Error
