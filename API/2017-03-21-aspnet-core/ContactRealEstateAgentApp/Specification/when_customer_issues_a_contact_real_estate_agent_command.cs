@@ -1,3 +1,5 @@
+using Application.Interfaces;
+using Application.SalesLead.RegisterSalesLead;
 using Domain;
 using System;
 using System.Linq;
@@ -26,9 +28,7 @@ namespace Specification
 		public void then_system_should_register_a_new_sales_lead()
 		{
 			// arrange
-			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
-			
-			SalesLead salesLead = new SalesLead(mockConfirmationSender)
+			SalesLead salesLead = new SalesLead()
 			{
 				Name = "Jboy Flaga",
 				Email = "jboyflaga@example.com",
@@ -51,17 +51,23 @@ namespace Specification
 		{
 			// arrange
 			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
-			IConfirmationMessageSender confirmationSender = mockConfirmationSender;
+			IConfirmationMessageService confirmationSender = mockConfirmationSender;
 
-			SalesLead salesLead = new SalesLead(confirmationSender)
+			RegisterSalesLeadModel salesLeadModel = new RegisterSalesLeadModel()
 			{
-				Name = "Jboy Flaga",
-				Email = "jboyflaga@example.com",
-				PhoneNumber = "09090909090"
+				HouseId = 1,
+
+				SalesLeadName = "Jboy Flaga",
+				SalesLeadEmail = "jboyflaga@example.com",
+				SalesLeadPhoneNumber = "09090909090",
+
+				ConfirmationMessage = "message of confirmation"
 			};
 
+			RegisterSalesLeadCommand registerSalesLeadCommand = new RegisterSalesLeadCommand(confirmationSender);
+
 			//act
-			salesLead.SendConfirmationMessage("message of confirmation");
+			registerSalesLeadCommand.RegisterSalesLead(salesLeadModel);
 
 			//assert
 			Assert.True(mockConfirmationSender.messageIsSent);

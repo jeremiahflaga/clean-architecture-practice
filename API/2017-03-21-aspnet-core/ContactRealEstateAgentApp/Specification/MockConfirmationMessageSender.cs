@@ -1,9 +1,8 @@
-﻿using Domain;
-using System;
+﻿using Application.Interfaces;
 
 namespace Specification
 {
-	internal class MockConfirmationMessageSender : IConfirmationMessageSender
+	internal class MockConfirmationMessageSender : IConfirmationMessageService
 	{
 		public bool messageIsSent = false;
 		public string sentMessage = "";
