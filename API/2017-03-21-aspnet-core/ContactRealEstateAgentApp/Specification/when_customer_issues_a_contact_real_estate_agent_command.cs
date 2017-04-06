@@ -26,7 +26,9 @@ namespace Specification
 		public void then_system_should_register_a_new_sales_lead()
 		{
 			// arrange
-			SalesLead salesLead = new SalesLead
+			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
+			
+			SalesLead salesLead = new SalesLead(mockConfirmationSender)
 			{
 				Name = "Jboy Flaga",
 				Email = "jboyflaga@example.com",
@@ -62,7 +64,8 @@ namespace Specification
 			salesLead.SendConfirmationMessage("message of confirmation");
 
 			//assert
-			Assert.True(confirmationSender.MessageIsSent)
+			Assert.True(mockConfirmationSender.messageIsSent);
+			Assert.Equal("message of confirmation", mockConfirmationSender.sentMessage);
 		}
 	}
 }
