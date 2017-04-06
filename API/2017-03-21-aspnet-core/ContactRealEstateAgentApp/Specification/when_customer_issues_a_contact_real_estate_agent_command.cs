@@ -1,4 +1,5 @@
 using Domain;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -17,6 +18,7 @@ namespace Specification
 		[Fact]
 		public void then_system_validates_all_data()
 		{
+			throw new NotImplementedException();
 		}
 
 
@@ -40,6 +42,27 @@ namespace Specification
 			Assert.Equal("Jboy Flaga", newlyAddedSalesLead.Name);
 			Assert.Equal("jboyflaga@example.com", newlyAddedSalesLead.Email);
 			Assert.Equal("09090909090", newlyAddedSalesLead.PhoneNumber);
+		}
+		
+		[Fact]
+		public void then_system_should_confirm_to_the_user_that_his_request_has_been_processed()
+		{
+			// arrange
+			MockConfirmationMessageSender mockConfirmationSender = new MockConfirmationMessageSender();
+			IConfirmationMessageSender confirmationSender = mockConfirmationSender;
+
+			SalesLead salesLead = new SalesLead(confirmationSender)
+			{
+				Name = "Jboy Flaga",
+				Email = "jboyflaga@example.com",
+				PhoneNumber = "09090909090"
+			};
+
+			//act
+			salesLead.SendConfirmationMessage("message of confirmation");
+
+			//assert
+			Assert.True(confirmationSender.MessageIsSent)
 		}
 	}
 }
